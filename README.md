@@ -1,6 +1,6 @@
 # DARP
 
-This repository is a C++ implementation for the paper <a href="[https://doi.org/10.1080/21680566.2025.2552884](https://www.sciencedirect.com/science/article/pii/S2352146525002613)">Joint Design of Conventional Public Transport Network and Mobility on Demand</a>. The project focuses on an integrated dial-a-ride setting where users may combine walking, public transport, and ride-sharing services.
+This repository is a C++ implementation for the paper <a href="[https://www.tandfonline.com/doi/full/10.1080/21680566.2025.2552884](https://www.sciencedirect.com/science/article/pii/S2352146525002613)">Joint Design of Conventional Public Transport Network and Mobility on Demand</a>. The project focuses on an integrated dial-a-ride setting where users may combine walking, public transport, and ride-sharing services.
 
 The method optimizes public transport line design and ride-sharing operations using Particle Swarm Optimization (PSO), Large Neighborhood Search (LNS), and Integrated Dial-a-Ride Problem (IDARP) modeling.
 
