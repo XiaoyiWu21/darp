@@ -232,8 +232,6 @@ Wu, X., Mouhrim, N., Araldo, A., Molenbruch, Y., Feillet, D., & Braekers, K. (20
 }
 ```
 
-Paper: [Joint Design of Conventional Public Transport Network and Mobility on Demand](https://www.sciencedirect.com/science/article/pii/S2352146525002613)
-
 ## Contact
 
 Xiaoyi Wu
