@@ -212,10 +212,14 @@ This framework can be used to study:
 * Multimodal transport network design
 * Operational cost reduction in low-demand public transport systems
 
+
 ## Citation
 
 If you use this code, please cite the following paper:
 
+Wu, X., Mouhrim, N., Araldo, A., Molenbruch, Y., Feillet, D., & Braekers, K. (2025). Joint Design of Conventional Public Transport Network and Mobility on Demand. *Transportation Research Procedia, 86*, 104–112. https://doi.org/10.1016/j.trpro.2025.04.014
+
+```bibtex
 @article{wu2025joint,
   title={Joint Design of Conventional Public Transport Network and Mobility on Demand},
   author={Wu, X. and Mouhrim, N. and Araldo, A. and Molenbruch, Y. and Feillet, D. and Braekers, K.},
@@ -226,11 +230,15 @@ If you use this code, please cite the following paper:
   doi={10.1016/j.trpro.2025.04.014},
   url={https://www.sciencedirect.com/science/article/pii/S2352146525002613}
 }
+```
 
-Paper: Joint Design of Conventional Public Transport Network and Mobility on Demand
+Paper: [Joint Design of Conventional Public Transport Network and Mobility on Demand](https://www.sciencedirect.com/science/article/pii/S2352146525002613)
 
 ## Contact
 
 Xiaoyi Wu
+
 Technical University of Denmark
+
 Email: [xiawu@dtu.dk](mailto:xiawu@dtu.dk)
+
