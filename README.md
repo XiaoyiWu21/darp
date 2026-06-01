@@ -1,62 +1,223 @@
----
+# DARP
+
+This repository contains a C++ implementation for the joint design of conventional public transport and mobility-on-demand services. The project focuses on an integrated dial-a-ride setting where users may combine walking, public transport, and ride-sharing services.
+
+The method optimizes public transport line design and ride-sharing operations using Particle Swarm Optimization (PSO), Large Neighborhood Search (LNS), and Integrated Dial-a-Ride Problem (IDARP) modeling.
+
+## Overview
+
+Conventional public transport can be inefficient in low-demand areas, where fixed routes and high coverage may lead to high operating costs and low service quality. Mobility-on-demand and ride-sharing services can complement public transport by serving first-mile and last-mile connections.
+
+This project studies a multimodal transport system composed of:
+
+* Walking
+* Public transport
+* Ride sharing
+* Integrated trips such as Walk → Public Transport → Ride Sharing
+* Integrated trips such as Ride Sharing → Public Transport → Walk
+
+The optimization framework jointly considers:
+
+* Stop activation and deactivation
+* Public transport line usage
+* Ride-sharing vehicle routing
+* User assignment to different transport modes
+* Operational cost and service quality indicators
+
+## Repository Structure
+
+```text
+.
+├── input/                         # Input data files
+├── result/                        # Output result files
+├── definitions.h                  # Global definitions and compilation settings
+├── YvesCalculator.h               # Helper calculations
+├── project08-07_reconstruct.cpp   # Main C++ source code
+├── python_script.py               # Script for running multiple experiments
+├── idarp.exe                      # Compiled executable
+└── README.md
+```
 
 ## Compilation
 
-If you want to run in parallel mode, set `#define PARALLEL_MODE 1` in `definitions.h`. Otherwise, set `#define PARALLEL_MODE 0`.
-For the parallelization, we use `OpenMP` framework
-To compile. On linux:
-```
-g++ --std=c++17 -g -fopenmp Project08-07_reconstruct.cpp -o idarp
+The code can be compiled in either sequential or parallel mode.
+
+To enable parallel mode, open `definitions.h` and set:
+
+```cpp
+#define PARALLEL_MODE 1
 ```
 
-If you are running on Mac or Windows, check the equivalent compilation command (in particular, check how to use OpenMP).
----
+To disable parallel mode, set:
+
+```cpp
+#define PARALLEL_MODE 0
+```
+
+Parallelization is implemented using OpenMP.
+
+### Linux
+
+To compile on Linux:
+
+```bash
+g++ --std=c++17 -g -fopenmp project08-07_reconstruct.cpp -o idarp
+```
+
+If your source file uses a different capitalization, adjust the filename accordingly.
+
+### macOS and Windows
+
+For macOS or Windows, use the equivalent C++17 compilation command and make sure OpenMP is correctly installed and linked.
+
+For example, on macOS with Homebrew LLVM, you may need to use `clang++` or `g++` from Homebrew and explicitly link OpenMP.
 
 ## Run
 
-Example of run command line(the last argument is the maximum tolerating coefficient)
-```
+An example command is:
+
+```bash
 ./idarp.exe input/one_hundred_cust.txt input/ListeOfLocations_10000_Cust.txt input/Discretisation_10000_Cust.txt input/load_file.txt 1.5
-
 ```
-run a series of experienments by python:
 
+The last argument is the maximum tolerating coefficient.
+
+Depending on your operating system and compilation output, the executable may be called `idarp` instead of `idarp.exe`:
+
+```bash
+./idarp input/one_hundred_cust.txt input/ListeOfLocations_10000_Cust.txt input/Discretisation_10000_Cust.txt input/load_file.txt 1.5
 ```
+
+## Run Multiple Experiments
+
+To run a series of experiments using the Python script:
+
+```bash
 python python_script.py
-
 ```
 
+## Input Files
 
-## Results
-./result/Graphic1.txt: this file contains the following information the number of vehicle of global best particle per iteration
+The example run uses the following input files:
 
-./result/Graphic2.txt: Average Travel Time: the Average Travel Time that for each rider of global best particle per iteration
+```text
+input/one_hundred_cust.txt
+input/ListeOfLocations_10000_Cust.txt
+input/Discretisation_10000_Cust.txt
+input/load_file.txt
+```
 
-./result/Graphic3.txt: contains the number of vehicles in each line, per each PSO iteration, of the best particle per iteration.
+These files define the customer requests, locations, discretization settings, and loading information required by the optimization model.
 
-./result/Graphic4.txt: contains the waiting time in each line upon iteration, of the best particle per iteration 
+## Output Files
 
-./result/Graphic5.txt: contains the number of active stations in each line upon iterations, of the global best 
+The program writes experiment results to the `result/` directory.
 
-./result/Graphic6.txt: contains the number of riders in each rider types upon each iteration, with riders types
-	R_W_PT_RS: riders that will use an integrated trasport composed of Walk -> Public Transport -> Ride Sharing
-	R_RS_PT_W: riders that will use an integrated trasport composed of Ride Sharing -> Public Transport -> Walk
-	R_PT: riders that will use only Public Transport -> Ride Sharing
-	R_RS: riders that will use only Ride Sharing
-	walk: only walkers 
+### `Graphic1.txt`
 
-./result/Graphic7.txt: this file visualizes the average traveling time in PT and RS from a zone to another through iterations
+Contains the number of vehicles of the global best particle at each iteration.
 
-./result/Graphic8.txt: visualizes the number of users of each line (See functions Visualize_Number_of_users_of_each_line_1 and Visualize_Number_of_users_of_each_line_2))
+### `Graphic2.txt`
 
-./result/Graphic12.txt: record each particle's performance in each iteration
+Contains the average travel time for each rider of the global best particle at each iteration.
 
-./result/Graphic15.txt: record number of active station number in each line of G_best
+### `Graphic3.txt`
 
+Contains the number of vehicles in each line at each PSO iteration for the best particle of that iteration.
 
-./result/Graphic19.txt: contains the number of rider in each line from one zone to another zone
+### `Graphic4.txt`
 
-## visualization
-./plot.xlsx visualize the results above
+Contains the waiting time for each line across iterations for the best particle.
 
-./javascript_visualization/index.html visualize the location of each inactive/active stations
+### `Graphic5.txt`
+
+Contains the number of active stations in each line across iterations for the global best solution.
+
+### `Graphic6.txt`
+
+Contains the number of riders in each rider type at each iteration.
+
+Rider types include:
+
+* `R_W_PT_RS`: riders using Walk → Public Transport → Ride Sharing
+* `R_RS_PT_W`: riders using Ride Sharing → Public Transport → Walk
+* `R_PT`: riders using public transport
+* `R_RS`: riders using ride sharing
+* `walk`: riders who only walk
+
+### `Graphic7.txt`
+
+Visualizes the average travel time in public transport and ride sharing from one zone to another across iterations.
+
+### `Graphic8.txt`
+
+Visualizes the number of users of each line.
+
+See the functions:
+
+```text
+Visualize_Number_of_users_of_each_line_1
+Visualize_Number_of_users_of_each_line_2
+```
+
+### `Graphic12.txt`
+
+Records each particle's performance at each iteration.
+
+### `Graphic15.txt`
+
+Records the number of active stations in each line of the global best solution.
+
+### `Graphic19.txt`
+
+Contains the number of riders in each line from one zone to another zone.
+
+## Visualization
+
+The repository includes two visualization options.
+
+### Excel Visualization
+
+```text
+plot.xlsx
+```
+
+This file can be used to visualize the numerical results generated in the `result/` directory.
+
+### JavaScript Visualization
+
+```text
+javascript_visualization/index.html
+```
+
+This page visualizes the locations of active and inactive stations.
+
+## Methods
+
+This project combines several optimization components:
+
+* **Particle Swarm Optimization (PSO)** for public transport network design
+* **Large Neighborhood Search (LNS)** for ride-sharing routing
+* **Integrated Dial-a-Ride Problem (IDARP)** modeling for multimodal user trips
+* **OpenMP** for optional parallel computation
+
+## Applications
+
+This framework can be used to study:
+
+* Public transport redesign
+* Mobility-on-demand integration
+* First-mile and last-mile transport services
+* Ride-sharing fleet operations
+* Multimodal transport network design
+* Operational cost reduction in low-demand public transport systems
+
+## Citation
+
+If you use this code, please cite the related research work associated with this repository.
+
+## Contact
+
+Xiaoyi Wu
+Technical University of Denmark
+Email: [xiawu@dtu.dk](mailto:xiawu@dtu.dk)
